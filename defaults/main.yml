@@ -1,0 +1,4 @@
+---
+admin_users: []
+admin_group: admins
+ansible_ssh_authorized_keys: []

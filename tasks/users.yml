@@ -1,0 +1,30 @@
+---
+- name: ensure packages are installed
+  apt: name={{ item }}
+  with_items:
+    - sudo
+
+- name: add {{ admin_group }} group
+  group:
+    name: '{{ admin_group }}'
+    state: present
+
+- name: add {{ admin_group }} to sudoers file
+  shell: echo '%{{ admin_group }} ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/{{ admin_group }}
+
+- name: add ansible user
+  user:
+    name: '{{ item }}'
+    shell: /bin/bash
+    groups: '{{ admin_group }}'
+    append: yes
+    state: present
+  with_items:
+    - ansible
+
+- name: set up authorized keys for ansible
+  authorized_key:
+    user: ansible
+    state: present
+    key: '{{ item }}'
+  with_file: '{{ ansible_ssh_authorized_keys }}'
