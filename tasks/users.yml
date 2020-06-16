@@ -25,4 +25,4 @@
     user: ansible
     state: present
     key: '{{ item }}'
-  with_file: '{{ ansible_ssh_authorized_keys }}'
+  with_file: '{{ provision_ansible_ssh_authorized_keys }}'
