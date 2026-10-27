@@ -1,3 +1,4 @@
 ---
-- name: install setfacl support
-  apt: name=acl
+- name: Install setfacl support
+  ansible.builtin.apt:
+    name: acl
